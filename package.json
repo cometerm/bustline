@@ -48,12 +48,12 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "prettier --write",
+      "prettier --write .",
       "eslint --fix",
       "vitest related --run --config vitest.config.js"
     ],
     "*.{json,css,md}": [
-      "prettier --write"
+      "prettier --write ."
     ]
   }
 }
