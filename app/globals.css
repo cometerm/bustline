@@ -1,26 +1,272 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #eeeeee;
+    --foreground: #373a40;
+    --card: #ffffff;
+    --card-foreground: #373a40;
+    --popover: #ffffff;
+    --popover-foreground: #373a40;
+    --primary: #dc5f00;
+    --primary-foreground: #ffffff;
+    --secondary: #686d76;
+    --secondary-foreground: #ffffff;
+    --muted: #f1f5f9;
+    --muted-foreground: #686d76;
+    --accent: #f1f5f9;
+    --accent-foreground: #373a40;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --border: #686d76;
+    --input: #686d76;
+    --ring: #dc5f00;
+    --radius: 0.5rem;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #eeeeee;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #686d76;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #dc5f00;
+}
+
+/* Custom styles for our app */
+.password-vault-container {
+  background: #eeeeee;
+  min-height: 100vh;
+}
+
+.credential-card {
+  margin-bottom: 1rem;
+}
+
+.credential-card .geist-card {
+  border-color: #686d76 !important;
+}
+
+.credential-card .geist-card:hover {
+  border-color: #dc5f00 !important;
+  box-shadow: 0 0 0 1px #dc5f00 !important;
+}
+
+/* Override button colors */
+.geist-button-success {
+  background: #dc5f00 !important;
+  border-color: #dc5f00 !important;
+  color: white !important;
+}
+
+.geist-button-success:hover {
+  background: #c55500 !important;
+  border-color: #c55500 !important;
+}
+
+/* Input overrides */
+.geist-input input {
+  color: #373a40 !important;
+}
+
+.geist-input input::placeholder {
+  color: #686d76 !important;
+}
+
+/* Text overrides */
+.geist-text h1,
+.geist-text h2,
+.geist-text h3,
+.geist-text h4,
+.geist-text h5,
+.geist-text h6 {
+  color: #373a40 !important;
+}
+
+.text-secondary {
+  color: #686d76 !important;
+}
+
+.text-orange {
+  color: #dc5f00 !important;
+}
+
+/* Simple form styles */
+.simple-input {
+  background: white;
+  border: 1px solid var(--medium-gray);
+  color: var(--dark-gray);
+  border-radius: 6px;
+  padding: 12px 16px;
+  transition: border-color 0.2s ease;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+}
+
+.simple-input:focus {
+  border-color: var(--orange-accent);
+}
+
+.simple-input::placeholder {
+  color: var(--medium-gray);
+}
+
+.simple-button {
+  background: var(--orange-accent);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 24px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+  font-size: 14px;
+}
+
+.simple-button:hover {
+  background: #c55500;
+  transform: translateY(-1px);
+}
+
+.simple-button:active {
+  transform: translateY(0);
+}
+
+.simple-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  transition: box-shadow 0.2s ease;
+}
+
+.simple-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Minimal credential card */
+.credential-item {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 16px;
+  margin-bottom: 12px;
+  transition: all 0.2s ease;
+}
+
+.credential-item:hover {
+  border-color: var(--orange-accent);
+  box-shadow: 0 1px 4px rgba(220, 95, 0, 0.1);
+}
+
+/* Simple animations */
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Utility classes */
+.text-medium {
+  color: var(--medium-gray);
+}
+
+.text-dark {
+  color: var(--dark-gray);
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-radius: var(--radius);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
 }
