@@ -1,0 +1,88 @@
+version: 2
+updates:
+  # Enable version updates for Bun
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "@me"
+    assignees:
+      - "@me"
+    commit-message:
+      prefix: "deps"
+      prefix-development: "deps-dev"
+      include: "scope"
+    groups:
+      # Group React-related updates
+      react:
+        patterns:
+          - "react*"
+          - "@types/react*"
+      # Group Next.js related updates
+      nextjs:
+        patterns:
+          - "next*"
+          - "@next/*"
+      # Group testing related updates
+      testing:
+        patterns:
+          - "@testing-library/*"
+          - "vitest*"
+          - "@vitejs/*"
+          - "jsdom"
+      # Group UI/styling related updates
+      ui:
+        patterns:
+          - "@radix-ui/*"
+          - "tailwind*"
+          - "@tailwindcss/*"
+          - "lucide-react"
+          - "@phosphor-icons/*"
+          - "class-variance-authority"
+          - "clsx"
+          - "tailwind-merge"
+          - "tw-animate-css"
+      # Group development tools
+      dev-tools:
+        patterns:
+          - "eslint*"
+          - "@eslint/*"
+          - "prettier"
+          - "husky"
+          - "lint-staged"
+          - "@types/*"
+      # Group minor and patch updates for production dependencies
+      production-minor-patch:
+        dependency-type: "production"
+        update-types:
+          - "minor"
+          - "patch"
+    ignore:
+      # Ignore major version updates for React (requires manual review)
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-dom"
+        update-types: ["version-update:semver-major"]
+      # Ignore major Next.js updates (requires manual review)
+      - dependency-name: "next"
+        update-types: ["version-update:semver-major"]
+
+  # Enable version updates for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "@me"
+    assignees:
+      - "@me"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
